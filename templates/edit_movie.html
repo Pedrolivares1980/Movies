@@ -1,0 +1,93 @@
+{% extends 'base.html' %}
+
+{% block title %}Librarian - Edit Movie{% endblock %}
+
+{% block content %}
+<div class="container mt-4">
+    <h1 class="text-center">Edit Movie</h1>
+    <div class="row">
+        <div class="col-md-6 offset-md-3">
+            <form method="POST" enctype="multipart/form-data">
+                {{ form.hidden_tag() }}
+                
+                <!-- Title Field with Error Handling -->
+                <div class="mb-3">
+                    <label for="title" class="form-label">Title</label>
+                    {{ form.title(class="form-control", id="title") }}
+                    {% if form.title.errors %}
+                        <div class="text-danger">{{ form.title.errors[0] }}</div>
+                    {% endif %}
+                </div>
+
+                <!-- Year Field with Error Handling -->
+                <div class="mb-3">
+                    <label for="year" class="form-label">Year</label>
+                    {{ form.year(class="form-control", id="year") }}
+                    {% if form.year.errors %}
+                        <div class="text-danger">{{ form.year.errors[0] }}</div>
+                    {% endif %}
+                </div>
+
+                <!-- Genre Field with Error Handling -->
+                <div class="mb-3">
+                    <label for="genre" class="form-label">Genre</label>
+                    {{ form.genre(class="form-control", id="genre") }}
+                    {% if form.genre.errors %}
+                        <div class="text-danger">{{ form.genre.errors[0] }}</div>
+                    {% endif %}
+                </div>
+
+                <!-- Overview Field with Error Handling -->
+                <div class="mb-3">
+                    <label for="overview" class="form-label">Overview</label>
+                    {{ form.overview(class="form-control", id="overview") }}
+                    {% if form.overview.errors %}
+                        <div class="text-danger">{{ form.overview.errors[0] }}</div>
+                    {% endif %}
+                </div>
+
+                <!-- Director Name Field with Error Handling -->
+                <div class="mb-3">
+                    <label for="director" class="form-label">Director Name</label>
+                    {{ form.director(class="form-control", id="director") }}
+                    {% if form.director.errors %}
+                        <div class="text-danger">{{ form.director.errors[0] }}</div>
+                    {% endif %}
+                </div>
+
+                <!-- Trailer Link Field with Error Handling -->
+                <div class="mb-3">
+                    <label for="trailer_link" class="form-label">Trailer Link</label>
+                    {{ form.trailer_link(class="form-control", id="trailer_link") }}
+                    {% if form.trailer_link.errors %}
+                        <div class="text-danger">{{ form.trailer_link.errors[0] }}</div>
+                    {% endif %}
+                </div>
+
+                <!-- Cast Field with Error Handling -->
+                <div class="mb-3">
+                    <label for="cast" class="form-label">Cast</label>
+                    {{ form.cast(class="form-control", id="cast") }}
+                    {% if form.cast.errors %}
+                        <div class="text-danger">{{ form.cast.errors[0] }}</div>
+                    {% endif %}
+                </div>
+
+                <!-- Cover Image Upload and Current Image Display -->
+                <div class="mx-3 mb-3">
+                    <label for="cover_image" class="form-label">Current Cover Image</label>
+                    <img src="{{ url_for('static', filename='images/uploads/' + movie.cover_image if movie.cover_image else 'images/uploads/default_cover.jpg') }}" alt="{{ movie.title }} Cover" class="img-thumbnail">
+                </div>
+                <div class="mb-3">
+                    <label for="cover_image" class="form-label">New Cover Image</label>
+                    <input type="file" class="form-control" id="cover_image" name="cover_image">
+                </div>
+
+                <!-- Submit Button -->
+                <button type="submit" class="btn btn-primary">Update Movie</button>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock %}
+

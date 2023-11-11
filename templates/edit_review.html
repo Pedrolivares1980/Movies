@@ -1,0 +1,41 @@
+{% extends 'base.html' %}
+
+{% block title %}Librarian - Edit Review{% endblock %}
+
+{% block content %}
+<div class="container mt-4">
+    <h1 class="text-center">Edit Review</h1>
+    <div class="row">
+        <div class="col-md-6 offset-md-3">
+            <!-- Edit Review Form -->
+            <form action="{{ url_for('edit_review', review_id=review.id) }}" method="POST">
+                {{ form.hidden_tag() }}
+                <div class="mb-3">
+                    <label for="content" class="form-label">Review</label>
+                    {{ form.content(class="form-control", id="content") }}
+                    {% if form.content.errors %}
+                        <div class="text-danger">{{ form.content.errors[0] }}</div>
+                    {% endif %}
+                </div>
+                <button type="submit" class="btn btn-primary" id="edit-review-button">Edit Review</button>
+                <!-- Cancel Button -->
+                <a href="{{ url_for('movie_details', movie_id=movie.id) }}" class="btn btn-secondary">Cancel</a>
+            </form>
+        </div>
+    </div>
+
+    <!-- Movie Details Display -->
+    <div class="row">
+        <div class="col-md-6 offset-md-3 mt-4">
+            <h3>Movie Details:</h3>
+            <img src="{{ url_for('static', filename='images/uploads/' + movie.cover_image) }}" alt="{{ movie.title }} Cover" class="img-fluid">
+            <p>Title: {{ movie.title }}</p>
+            <p>Director: {{ movie.director }}</p> <!-- Assuming the attribute is 'director' -->
+        </div>
+    </div>
+</div>
+
+{% endblock %}
+
+
+

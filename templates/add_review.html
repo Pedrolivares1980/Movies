@@ -1,0 +1,27 @@
+{% extends 'base.html' %}
+
+{% block title %}Librarian - Add Review{% endblock %}
+
+{% block content %}
+<div class="container mt-4">
+    <h1 class="text-center">Add Review</h1>
+    <div class="text-center mb-4">
+        <img src="{{ url_for('static', filename='images/uploads/' + movie.cover_image) }}" alt="{{ movie.title }} Cover" class="img-fluid">
+        <h2>{{ movie.title }}</h2>
+    </div>
+
+    <div class="row">
+        <div class="col-md-6 offset-md-3">
+            <form action="{{ url_for('add_review', movie_id=movie.id) }}" method="POST">
+                {{ form.hidden_tag() }}
+                <div class="mb-3">
+                    <label for="content" class="form-label">Review</label>
+                    {{ form.content(class="form-control", id="content") }}
+                </div>
+                <button type="submit" class="btn btn-primary">Add Review</button>
+                <a href="{{ url_for('movie_details', movie_id=movie.id) }}" class="btn btn-secondary">Back</a>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,87 @@
+{% extends 'base.html' %}
+
+{% block title %}Add New Movie{% endblock %}
+
+{% block content %}
+<div class="container mt-4">
+  <h1 class="text-center">Add a New Movie</h1>
+  <form method="POST" enctype="multipart/form-data" action="{{ url_for('add_movie') }}">
+    {{ form.hidden_tag() }}
+
+    <!-- Título de la película -->
+    <div class="mb-3">
+      <label for="title" class="form-label">Title</label>
+      {{ form.title(class="form-control", id="title") }}
+      {% if form.title.errors %}
+      <div class="invalid-feedback">{{ form.title.errors[0] }}</div>
+      {% endif %}
+    </div>
+
+    <!-- Año de la película -->
+    <div class="mb-3">
+      <label for="year" class="form-label">Year</label>
+      {{ form.year(class="form-control", id="year") }}
+      {% if form.year.errors %}
+      <div class="invalid-feedback">{{ form.year.errors[0] }}</div>
+      {% endif %}
+    </div>
+
+    <!-- Género de la película -->
+    <div class="mb-3">
+      <label for="genre" class="form-label">Genre</label>
+      {{ form.genre(class="form-control", id="genre") }}
+      {% if form.genre.errors %}
+      <div class="invalid-feedback">{{ form.genre.errors[0] }}</div>
+      {% endif %}
+    </div>
+
+    <!-- Director de la película -->
+    <div class="mb-3">
+      <label for="director" class="form-label">Director</label>
+      {{ form.director(class="form-control", id="director") }}
+      {% if form.director.errors %}
+      <div class="invalid-feedback">{{ form.director.errors[0] }}</div>
+      {% endif %}
+    </div>
+
+    <!-- Descripción de la película -->
+    <div class="mb-3">
+      <label for="overview" class="form-label">Overview</label>
+      {{ form.overview(class="form-control", id="overview") }}
+      {% if form.overview.errors %}
+      <div class="invalid-feedback">{{ form.overview.errors[0] }}</div>
+      {% endif %}
+    </div>
+
+    <!-- Reparto de la película -->
+    <div class="mb-3">
+      <label for="cast" class="form-label">Cast</label>
+      {{ form.cast(class="form-control", id="cast", placeholder="Name1, Name2, Name3...") }}
+      {% if form.cast.errors %}
+      <div class="invalid-feedback">{{ form.cast.errors[0] }}</div>
+      {% endif %}
+    </div>
+
+    <!-- Imagen de portada de la película -->
+    <div class="mb-3">
+      <label for="cover_image" class="form-label">Cover Image</label>
+      {{ form.cover_image(class="form-control", id="cover_image") }}
+      {% if form.cover_image.errors %}
+      <div class="invalid-feedback">{{ form.cover_image.errors[0] }}</div>
+      {% endif %}
+    </div>
+
+    <!-- Enlace al tráiler de la película -->
+    <div class="mb-3">
+      <label for="trailer_link" class="form-label">Trailer Link</label>
+      {{ form.trailer_link(class="form-control", id="trailer_link") }}
+      {% if form.trailer_link.errors %}
+      <div class="invalid-feedback">{{ form.trailer_link.errors[0] }}</div>
+      {% endif %}
+    </div>
+
+    <!-- Botón para enviar el formulario -->
+    <button type="submit" class="btn btn-primary">Add Movie</button>
+  </form>
+</div>
+{% endblock %}

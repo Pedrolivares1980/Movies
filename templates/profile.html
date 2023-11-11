@@ -1,0 +1,86 @@
+{% extends 'base.html' %}
+
+{% block title %}Movies - Profile{% endblock %}
+
+{% block content %}
+<div class="container mt-4">
+    <h1 class="text-center">My Profile</h1>
+    <div class="row">
+        <!-- Columna para el formulario de actualización de imagen de perfil -->
+        <div class="col-md-4">
+            <!-- Mostrar imagen actual del perfil -->
+            <div class="mb-4">
+                <img src="{{ url_for('static', filename='images/uploads/' + user.profile_image) if user.profile_image else url_for('static', filename='images/uploads/default_profile.jpg') }}" alt="Profile Image" class="rounded-circle img-thumbnail">
+            </div>
+            
+            <!-- Formulario para actualizar la imagen de perfil -->
+            <form method="POST" enctype="multipart/form-data" action="{{ url_for('update_profile_image') }}">
+                {{ form.hidden_tag() }}
+                <div class="mb-3">
+                    <label for="profile_image" class="form-label">Edit Profile Image</label>
+                    {{ form.profile_image(class="form-control", id="profile_image") }}
+                    {% if form.profile_image.errors %}
+                        <div class="invalid-feedback">{{ form.profile_image.errors[0] }}</div>
+                    {% endif %}
+                </div>
+                <button type="submit" class="btn btn-primary">Update Profile Image</button>
+            </form>
+            
+            <!-- Formulario para eliminar cuenta -->
+            <form method="POST" action="{{ url_for('delete_account') }}">
+                {{ form.hidden_tag() }}
+                <button type="submit" class="btn btn-danger" id="delete-account-button" onclick="return confirmDeleteAccount();">Delete Account</button>
+            </form>
+        </div>
+        <div class="col-md-8">
+            <h2>My Movies</h2>
+            <ul class="list-group">
+                {% for movie in user_movies %}
+                    <li class="list-group-item">
+                        <div class="row">
+                            <div class="col-md-3">
+                                <img src="{{ url_for('static', filename='images/uploads/' + movie.cover_image) if movie.cover_image else url_for('static', filename='images/uploads/default_cover.jpg') }}" alt="{{ movie.title }} Cover" class="img-fluid">
+                            </div>
+                            <div class="col-md-9">
+                                <h3>{{ movie.title }}</h3>
+                                <p>Year: {{ movie.year }}</p>
+                                <p>Genre: {{ movie.genre }}</p>
+                                <p>Director: {{ movie.director }}</p>
+                                <p>Overview: {{ movie.overview }}</p>
+                                <p>Cast: {{ movie.cast }}</p>
+                                <a href="{{ url_for('edit_movie', movie_id=movie.id) }}" class="btn btn-primary">Edit</a>
+                                <form action="{{ url_for('delete_movie', movie_id=movie.id) }}" method="POST" onsubmit="return confirmDeleteMovie();">
+                                    <button type="submit" class="btn btn-danger">Delete Movie</button>
+                                </form>
+                            </div>
+                        </div>
+                    </li>
+                {% endfor %}
+            </ul>
+            <h2 class="mt-4">My Reviews</h2>
+            <ul class="list-group">
+                {% for review in user_reviews %}
+                    <li class="list-group-item">
+                        <h4>{{ review.movie.title }}</h4>
+                        <p>{{ review.content }}</p>
+                        <p>By: {{ review.user.username }}</p>
+                        <a href="{{ url_for('edit_review', review_id=review.id) }}" class="btn btn-primary">Edit</a>
+                        <form action="{{ url_for('delete_review', review_id=review.id) }}" method="POST">
+                            <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+                            <button type="submit" class="btn btn-danger">Delete</button>
+                        </form>
+                    </li>
+                {% endfor %}
+            </ul>
+        </div>
+    </div>
+    <div class="mt-4">
+        <div class="mt-4 mb-4">
+            <a href="{{ url_for('add_movie') }}" class="btn btn-primary">Añadir Nueva Película</a>
+        </div>
+    </div>
+
+    <script src="{{ url_for('static', filename='js/confirm.js') }}"></script>
+
+{% endblock %}
+

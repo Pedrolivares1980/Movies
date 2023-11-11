@@ -1,0 +1,52 @@
+{% extends 'base.html' %}
+
+{% block title %}Librarian - Movie Details{% endblock %}
+
+{% block content %}
+<div class="container mt-4">
+    <h1 class="text-center">{{ movie.title }}</h1>
+    <div class="row">
+        <div class="col-md-4">
+            <img src="{{ url_for('static', filename='images/uploads/' + movie.cover_image) }}" alt="{{ movie.title }} Cover" class="img-fluid">
+        </div>
+        <div class="col-md-8">
+            <h2>Details</h2>
+            <p>Title: {{ movie.title }}</p>
+            <p>Director: {{ movie.director }}</p> <!-- Adjust attribute name as per your model -->
+            <p>Year: {{ movie.year }}</p>
+            <p>Genre: {{ movie.genre }}</p>
+            <p>Overview: {{ movie.overview }}</p>
+            <p>Trailer Link: <a href="{{ movie.trailer_link }}" target="_blank">{{ movie.trailer_link }}</a></p>
+            <p>Cast: {{ movie.cast }}</p>
+
+            <!-- Reviews Section -->
+            <h2>Reviews</h2>
+            <ul class="list-group">
+                {% for review in movie.reviews %}
+                <li class="list-group-item">
+                    <p>{{ review.content }}</p>
+                    <p>Date Posted: {{ review.date_posted.strftime('%Y-%m-%d %H:%M:%S') }}</p>
+                    <p>By: {{ review.user.username }}</p>
+                    {% if current_user.is_authenticated and review.user_id == current_user.id %}
+                    <div>
+                        <a href="{{ url_for('edit_review', review_id=review.id) }}" class="btn btn-primary">Edit</a>
+                        <form action="{{ url_for('delete_review', review_id=review.id) }}" method="POST">
+                            <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+                            <button type="submit" class="btn btn-danger">Delete</button>
+                        </form>
+                    </div>
+                    {% endif %}
+                </li>
+                {% endfor %}
+            </ul>
+
+            <!-- Link to Add Review Page for Authenticated Users -->
+            {% if current_user.is_authenticated %}
+            <h2>Add a Review</h2>
+            <a href="{{ url_for('add_review', movie_id=movie.id) }}" class="btn btn-primary">Write a Review</a>
+            {% endif %}
+        </div>
+    </div>
+</div>
+{% endblock %}
+
