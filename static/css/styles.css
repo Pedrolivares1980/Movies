@@ -250,7 +250,7 @@ div.box{
 
 /* REGISTER */
 
-.register_container, .login-container{
+.register_container, .login-container, .add_movie_container, .add_review_container{
   max-width: 600px;
   margin: 0 auto;
   margin-top: 4rem;

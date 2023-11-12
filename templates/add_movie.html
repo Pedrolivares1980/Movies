@@ -3,7 +3,7 @@
 {% block title %}Add New Movie{% endblock %}
 
 {% block content %}
-<div class="container mt-4">
+<div class="add_movie_container ">
   <h1 class="text-center">Add a New Movie</h1>
   <form method="POST" enctype="multipart/form-data" action="{{ url_for('add_movie') }}">
     {{ form.hidden_tag() }}
