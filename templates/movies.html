@@ -3,97 +3,88 @@
 {% block title %}Librarian - Movie Catalog{% endblock %}
 
 {% block content %}
-<div class="container mt-4">
+<div class="container-fluid mt-4">
     <h1 class="text-center">Movie Catalog</h1>
     <div class="row">
-        <div class="col-md-8">
+        <div>
             <!-- Search Form -->
-            <div class="row mt-3">
-                <div class="col-md-6">
-                    <form method="GET" action="{{ url_for('movies') }}" class="mb-3">
-                        <div class="input-group">
-                            <input type="text" name="search" class="form-control" placeholder="Search Movies">
-                            <button type="submit" class="btn btn-primary">Search</button>
+            <div class="container filter_controls">
+                <!-- <div class="row mt-3">
+                    <div class="col-12 col-md-6">
+                        <form method="GET" action="{{ url_for('movies') }}" class="mb-3">
+                            <div class="input-group">
+                                <input type="text" name="search" class="form-control" placeholder="Search Movies">
+                                <button type="submit" class="btn btn-primary">Search</button>
+                            </div>
+                        </form>
+                    </div>
+                </div> -->
+                <div class="row mt-3 filter_controls">
+                    <div class="col-12 col-md-6">
+                        <form method="GET" action="{{ url_for('movies') }}" class="mb-3">
+                            <div class="input-group">
+                                <input type="text" name="search" class="form-control" placeholder="Search Movies">
+        
+                                <!-- Menú desplegable para géneros -->
+                                <select name="genre" class="form-control">
+                                    <option value="">All Genres</option>
+                                    {% for genre in genres %}
+                                    <option value="{{ genre }}">{{ genre.title() }}</option>
+                                    {% endfor %}
+                                </select>
+                                <button type="submit" class="btn btn-primary">Search</button>
+                            </div>
+                        </form>
+                        <div class="text-center">
+                            <a href="{{ url_for('movies') }}" class="btn btn-secondary">Clear Filters</a>
                         </div>
-                    </form>
+                    </div>
                 </div>
             </div>
-            <div class="col-md-6">
-                <form method="GET" action="{{ url_for('movies') }}" class="mb-3">
-                    <div class="input-group">
-                        <input type="text" name="search" class="form-control" placeholder="Search Movies">
-                        
-                        <!-- Menú desplegable para géneros -->
-                        <select name="genre" class="form-control">
-                            <option value="">All Genres</option>
-                            {% for genre in genres %}
-                            <option value="{{ genre }}">{{ genre.title() }}</option>
-                            {% endfor %}
-                        </select>
-                        <button type="submit" class="btn btn-primary">Search</button>
-                    </div>
-                </form>
-            <div>
-                <a href="{{ url_for('movies') }}" class="btn btn-secondary">Clear Filters</a>
-            </div>
-            </div>
-            
+
             <!-- Movies Display -->
             <div class="movies_container">
                 {% for movie in movies %}
                 <div class="box">
                     <div class="box-img">
-                        <img src="{{ url_for('static', filename='images/uploads/' + movie.cover_image) }}" alt="{{ movie.title }} Cover" class="card-img-top" data-toggle="tooltip" data-placement="top" title="Hover for Details">
+                        <img src="{{ url_for('static', filename='images/uploads/' + movie.cover_image) }}"
+                            alt="{{ movie.title }} Cover" class="card-img-top" data-toggle="tooltip"
+                            data-placement="top" title="Hover for Details">
                     </div>
                     <div class="movies_content">
-                        <h3 >{{ movie.title }}</h3>
-                        <p >Year: {{ movie.year }}</p>
+                        <h3>{{ movie.title }}</h3>
+                        <p>Year: {{ movie.year }}</p>
                         <div class="button">
                             <a href="{{ url_for('movie_details', movie_id=movie.id) }}" class="b1">Details</a>
                         </div>
                     </div>
                 </div>
-    
-                    <!-- <div class="col-md-6 mb-4 mt-3 ml-auto">                        
-                        <div class="card mx-auto">
-
-                            <div class="face front">
-                                <img src="{{ url_for('static', filename='images/uploads/' + movie.cover_image) }}" alt="{{ movie.title }} Cover" class="card-img-top" data-toggle="tooltip" data-placement="top" title="Hover for Details">
-                            </div>
-
-                            <div class="face back">
-                                <h3 class="card_title">{{ movie.title }}</h3>
-                                <p class="card-text">Director: {{ movie.director }}</p>
-                                <p class="card-text">Year: {{ movie.year }}</p>
-                                <p class="card-text">Genre: {{ movie.genre }}</p>
-                                <a href="{{ url_for('movie_details', movie_id=movie.id) }}" class="btn btn-primary">Details</a>
-                            </div>
-                        </div>
-                    </div> -->
                 {% endfor %}
             </div>
             <!-- Pagination Controls -->
-            <nav aria-label="Movie pagination">
-                <ul class="pagination">
-                    <!-- Previous Page Link -->
-                    <li class="page-item {% if not pagination.has_prev %}disabled{% endif %}">
-                        <a class="page-link" href="{{ url_for('movies', page=pagination.prev_num) }}" {% if not pagination.has_prev %}aria-disabled="true"{% endif %}>Previous</a>
-                    </li>
-                    <!-- Page Numbers -->
-                    {% for page_num in pagination.iter_pages() %}
+            <div class="pagination_controls">
+                <nav aria-label="Movie pagination">
+                    <ul class="pagination filter_controls">
+                        <!-- Previous Page Link -->
+                        <li class="page-item {% if not pagination.has_prev %}disabled{% endif %}">
+                            <a class="page-link" href="{{ url_for('movies', page=pagination.prev_num) }}" {% if not
+                                pagination.has_prev %}aria-disabled="true" {% endif %}>Previous</a>
+                        </li>
+                        <!-- Page Numbers -->
+                        {% for page_num in pagination.iter_pages() %}
                         <li class="page-item {% if page_num == pagination.page %}active{% endif %}">
                             <a class="page-link" href="{{ url_for('movies', page=page_num) }}">{{ page_num }}</a>
                         </li>
-                    {% endfor %}
-                    <!-- Next Page Link -->
-                    <li class="page-item {% if not pagination.has_next %}disabled{% endif %}">
-                        <a class="page-link" href="{{ url_for('movies', page=pagination.next_num) }}" {% if not pagination.has_next %}aria-disabled="true"{% endif %}>Next</a>
-                    </li>
-                </ul>
-            </nav>
+                        {% endfor %}
+                        <!-- Next Page Link -->
+                        <li class="page-item {% if not pagination.has_next %}disabled{% endif %}">
+                            <a class="page-link" href="{{ url_for('movies', page=pagination.next_num) }}" {% if not
+                                pagination.has_next %}aria-disabled="true" {% endif %}>Next</a>
+                        </li>
+                    </ul>
+                </nav>
+            </div>
         </div>
     </div>
 </div>
 {% endblock %}
-
-

@@ -64,17 +64,21 @@ main{
 
 
 /* MOVIES */
+
+
 .movies_container{
-  margin-top: 3rem;
-  margin-bottom: 2rem;
   display: flex;
   flex-direction: column;
-  justify-content: space-around;
+  justify-content: center;
+  align-items: center;
 }
 
 
 div.box{
   padding: 0;
+  margin: 0 auto;
+  margin-top: 2rem;
+  margin-bottom: 1rem;
 }
 
 .box{
@@ -164,6 +168,24 @@ div.box{
   background: #10890C;
 }
 
+.filter_controls, .pagination_controls {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  margin: 0 auto;
+}
+
+.filter_controls .row{
+  width: 100%;
+  max-width: 800px;
+}
+
+.pagination_controls nav {
+  width: 100%;
+  max-width: 400px;
+  margin: 3rem 0;
+}
+
 
 /* PROFILE */
 
@@ -174,9 +196,36 @@ div.box{
   border-radius: 50%;
 }
 
-.profile_controls{
-  margin: 0 auto;
+.profile-button-group {
+  display: flex;
+  justify-content: center;
+  flex-direction: column; /* Alineación vertical de los botones */
+  align-items: center; /* Centrado horizontal */
+  gap: 20px; /* Espacio entre los botones */
 }
+
+.profile-btn {
+  width: 200px; /* Limita el ancho máximo del botón */
+  margin-top: 10px; /* Espacio arriba del botón */
+}
+
+.profile_image_update{
+  display: flex;
+  flex-direction: column; /* Organiza los elementos del formulario verticalmente */
+  align-items: center; /* Centra los elementos horizontalmente */
+}
+
+.btn_controls{
+  font-size: 1em;
+  cursor: pointer;
+  width: 150px;
+}
+
+.btn_controls:hover{
+  transition: all ease-in-out .5s;
+  transform: scale(1.2);
+}
+
 
 /* REGISTER */
 
@@ -190,17 +239,21 @@ footer{
 }
 
 
-@media only screen and(min-width:798px){
-
-
-
-
-
-
-  /* MOVIES */
-  .movies_container{
-    display: flex;
+@media (min-width:798px) {
+  .movies_container {
     flex-direction: row;
-    justify-content: space-evenly;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    gap: 1rem;
   }
-};
+
+  .box {
+    margin: 1rem;
+    width: 400px;
+  }
+
+  .box .box-img img {
+    width: 400px;
+    height: 600px;
+  }
+}

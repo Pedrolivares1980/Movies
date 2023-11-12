@@ -3,39 +3,71 @@
 {% block title %}Movies - Profile{% endblock %}
 
 {% block content %}
-<div class="container mt-4">
-    <h1 class="text-center">My Profile</h1>
-    <div class="row">
+<div class="container mt-4 ">
+    <div class="row ">
         <!-- Columna para el formulario de actualización de imagen de perfil -->
-        <div class="col-md-4">
-            <!-- Mostrar imagen actual del perfil -->
+        <!-- <div class="col-md-4 ">
             <div class="mb-4">
                 <img class="profile_img" src="{{ url_for('static', filename='images/uploads/' + user.profile_image) if user.profile_image else url_for('static', filename='images/uploads/default_profile.jpg') }}" alt="Profile Image" class="rounded-circle img-thumbnail">
             </div>
-            <div >
-                <form method="POST"  enctype="multipart/form-data" action="{{ url_for('update_profile_image') }}">
+            <div class="profile-button-group" >
+                <form  method="POST"  enctype="multipart/form-data" action="{{ url_for('update_profile_image') }}">
                     {{ form.hidden_tag() }}
                     <div class="mb-3">
-                        <label for="profile_image" class="form-label text-center my-2 ">Edit Profile Image</label>
+                        <label for="profile_image" class="form-label profile_btn_account  my-2 ">Edit Profile Image</label>
                         {{ form.profile_image(class="form-control", id="profile_image") }}
                         {% if form.profile_image.errors %}
                             <div class="invalid-feedback">{{ form.profile_image.errors[0] }}</div>
                         {% endif %}
                     </div>
-                    <button type="submit" class="btn btn-primary my-2 ">Update Profile Image</button>
+                    <button type="submit" class="btn btn-primary profile_btn">Update Profile Image</button>
                 </form>
                 
-                <form method="POST" action="{{ url_for('delete_account') }}">
+                <form  method="POST" action="{{ url_for('delete_account') }}">
                     {{ form.hidden_tag() }}
-                    <button type="submit" class="btn btn-danger my-2  " id="delete-account-button" onclick="return confirmDeleteAccount();">Delete Account</button>
+                    <button type="submit" class="btn btn-danger profile_btn" id="delete-account-button" onclick="return confirmDeleteAccount();">Delete Account</button>
                 </form>
                 <div class="mt-4">
-                    <div class="my-3">
-                        <a href="{{ url_for('add_movie') }}" class="btn btn-primary my-2 ms-auto ">Añadir Nueva Película</a>
+                    <div class="my-3 profile_btn_account">
+                        <a href="{{ url_for('add_movie') }}" class="btn btn-primary profile-btn">Add a Movie</a>
                     </div>
                 </div>
             </div>
+        </div> -->
+        <div class="col-md-4">
+            <!-- Display current profile image -->
+            <div class="mb-4">
+                <img class="profile_img" src="{{ url_for('static', filename='images/uploads/' + user.profile_image) if user.profile_image else url_for('static', filename='images/uploads/default_profile.jpg') }}" alt="Profile Image" class="rounded-circle img-thumbnail">
+            </div>
+        
+            <!-- Button group container -->
+            <div class="profile-button-group">
+                <!-- Form for updating profile image -->
+                <form class="profile_image_update" method="POST" enctype="multipart/form-data" action="{{ url_for('update_profile_image') }}">
+                    {{ form.hidden_tag() }}
+                    <div class="mb-3 text-center">
+                        <label for="profile_image" class="form-label my-2 ">Edit Profile Image</label>
+                        {{ form.profile_image(class="form-control", id="profile_image") }}
+                        {% if form.profile_image.errors %}
+                            <div class="invalid-feedback">{{ form.profile_image.errors[0] }}</div>
+                        {% endif %}
+                    </div>
+                    <button type="submit" class="btn btn-primary profile-btn">Update Profile Image</button>
+                </form>
+        
+                <!-- Form for deleting account -->
+                <form method="POST" action="{{ url_for('delete_account') }}">
+                    {{ form.hidden_tag() }}
+                    <button type="submit" class="btn btn-danger profile-btn" id="delete-account-button" onclick="return confirmDeleteAccount();">Delete Account</button>
+                </form>
+        
+                <!-- Link to add a new movie -->
+                <div >
+                    <a href="{{ url_for('add_movie') }}" class="btn btn-primary profile-btn">Add a Movie</a>
+                </div>
+            </div>
         </div>
+        
         <div class="col-md-8 my-3">
             <h2 class="text-center my-4">My Movies</h2>
             <ul class="list-group">
@@ -52,10 +84,13 @@
                                 <p>Director: {{ movie.director }}</p>
                                 <p>Overview: {{ movie.overview }}</p>
                                 <p>Cast: {{ movie.cast }}</p>
-                                <a href="{{ url_for('edit_movie', movie_id=movie.id) }}" class="btn btn-primary my-2">Edit</a>
-                                <form action="{{ url_for('delete_movie', movie_id=movie.id) }}" method="POST" onsubmit="return confirmDeleteMovie();">
-                                    <button type="submit" class="btn btn-danger my-2">Delete Movie</button>
-                                </form>
+                                <div class="profile_btn">
+                                    <a href="{{ url_for('edit_movie', movie_id=movie.id) }}" class="btn btn-primary btn_controls my-1 ">Edit</a>
+                                    <form action="{{ url_for('delete_movie', movie_id=movie.id) }}" method="POST" onsubmit="return confirmDeleteMovie();">
+                                        <button type="submit" class="btn btn-danger btn_controls my-1">Delete Movie</button>
+                                    </form>
+                                    <a href="{{ url_for('movie_details', movie_id=movie.id) }}" class="btn btn-success btn_controls my-1">Details</a>
+                                </div>
                             </div>
                         </div>
                     </li>
