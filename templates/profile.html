@@ -23,13 +23,13 @@
                         <div class="invalid-feedback">{{ form.profile_image.errors[0] }}</div>
                     {% endif %}
                 </div>
-                <button type="submit" class="btn btn-primary">Update Profile Image</button>
+                <button type="submit" class="btn btn-primary my-2">Update Profile Image</button>
             </form>
             
             <!-- Formulario para eliminar cuenta -->
             <form method="POST" action="{{ url_for('delete_account') }}">
                 {{ form.hidden_tag() }}
-                <button type="submit" class="btn btn-danger" id="delete-account-button" onclick="return confirmDeleteAccount();">Delete Account</button>
+                <button type="submit" class="btn btn-danger mt-2" id="delete-account-button" onclick="return confirmDeleteAccount();">Delete Account</button>
             </form>
         </div>
         <div class="col-md-8">
@@ -48,9 +48,9 @@
                                 <p>Director: {{ movie.director }}</p>
                                 <p>Overview: {{ movie.overview }}</p>
                                 <p>Cast: {{ movie.cast }}</p>
-                                <a href="{{ url_for('edit_movie', movie_id=movie.id) }}" class="btn btn-primary">Edit</a>
+                                <a href="{{ url_for('edit_movie', movie_id=movie.id) }}" class="btn btn-primary my-2">Edit</a>
                                 <form action="{{ url_for('delete_movie', movie_id=movie.id) }}" method="POST" onsubmit="return confirmDeleteMovie();">
-                                    <button type="submit" class="btn btn-danger">Delete Movie</button>
+                                    <button type="submit" class="btn btn-danger my-2">Delete Movie</button>
                                 </form>
                             </div>
                         </div>
@@ -67,7 +67,7 @@
                         <a href="{{ url_for('edit_review', review_id=review.id) }}" class="btn btn-primary">Edit</a>
                         <form action="{{ url_for('delete_review', review_id=review.id) }}" method="POST">
                             <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
-                            <button type="submit" class="btn btn-danger">Delete</button>
+                            <button type="submit" class="btn btn-danger my-2">Delete</button>
                         </form>
                     </li>
                 {% endfor %}
