@@ -13,48 +13,62 @@
 
 <body>
     <header>
-        <!-- Navigation bar -->
-        <nav class="navbar fixed-top  navbar-expand-md custom-navbar ">
-            <div class="container-fluid">
-                <a class="navbar-brand px-md-5 logo" href="{{ url_for('index') }}">Movie World</a>
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
-                    aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-                <div class="collapse navbar-collapse" id="navbarNav">
-                    <ul class="navbar-nav ms-auto pe-md-4">
-                        <li class="nav-item">
-                            <a class="nav-link " href="{{ url_for('index') }}">Home</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link " href="{{ url_for('movies') }}">Movies</a>
-                        </li>
-                        {% if not current_user.is_authenticated %}
-                        <li class="nav-item">
-                            <a class="nav-link " href="{{ url_for('register') }}">Register</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link " href="{{ url_for('login') }}">Login</a>
-                        </li>
-                        {% endif %}
-                        {% if current_user.is_authenticated %}
-                        <li class="nav-item">
-                            <a class="nav-link " href="{{ url_for('profile') }}">Profile</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link " href="{{ url_for('logout') }}">Logout</a>
-                        </li>
-                        {% endif %}
-                    </ul>
-                </div>
-            </div>
-        </nav>
+<!-- Navigation bar -->
+<nav class="navbar fixed-top navbar-expand-md custom-navbar">
+    <div class="container-fluid">
+        <!-- Navbar brand/logo -->
+        <a class="navbar-brand px-md-5 logo" href="{{ url_for('index') }}">Movie World</a>
+
+        <!-- Navbar toggler for mobile view -->
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+                aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <!-- Navbar links -->
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav ms-auto pe-md-4">
+                <!-- Home link -->
+                <li class="nav-item">
+                    <a class="nav-link {{ 'active' if request.path == url_for('index') else '' }}" href="{{ url_for('index') }}">Home</a>
+                </li>
+
+                <!-- Movies link -->
+                <li class="nav-item">
+                    <a class="nav-link {{ 'active' if request.path == url_for('movies') else '' }}" href="{{ url_for('movies') }}">Movies</a>
+                </li>
+
+                <!-- Conditional links based on authentication status -->
+                {% if not current_user.is_authenticated %}
+                    <!-- Register link -->
+                    <li class="nav-item">
+                        <a class="nav-link {{ 'active' if request.path == url_for('register') else '' }}" href="{{ url_for('register') }}">Register</a>
+                    </li>
+                    <!-- Login link -->
+                    <li class="nav-item">
+                        <a class="nav-link {{ 'active' if request.path == url_for('login') else '' }}" href="{{ url_for('login') }}">Login</a>
+                    </li>
+                {% else %}
+                    <!-- Profile link -->
+                    <li class="nav-item">
+                        <a class="nav-link {{ 'active' if request.path == url_for('profile') else '' }}" href="{{ url_for('profile') }}">Profile</a>
+                    </li>
+                    <!-- Logout link -->
+                    <li class="nav-item">
+                        <a class="nav-link {{ 'active' if request.path == url_for('logout') else '' }}" href="{{ url_for('logout') }}">Logout</a>
+                    </li>
+                {% endif %}
+            </ul>
+        </div>
+    </div>
+</nav>
+
     </header>
     <main class="container-fluid mt-4">
         <!-- Flash messages display -->
         {% with messages = get_flashed_messages(with_categories=true) %}
         {% if messages %}
-        <div class="flash-messages">
+        <div class="flash-messages mt-3">
             {% for category, message in messages %}
             <div class="alert alert-{{ category }} alert-dismissible fade show text-center" role="alert">
                 {{ message }}

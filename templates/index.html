@@ -11,16 +11,12 @@
         {% if random_movies %}
             {% for movie in random_movies %}
             <div class="carousel-item {% if loop.first %}active{% endif %} ">
-                <img src="{{ url_for('static', filename='images/uploads/' + movie.cover_image) }}" class="d-block w-100" alt="{{ movie.title }} cover">
-                <div class="carousel-caption d-none d-md-block">
-                    <h5>{{ movie.title }}</h5>
-                    <p>Directed by {{ movie.director }}</p>
-                </div>
+                <img class="carouse_image" src="{{ url_for('static', filename='images/uploads/' + movie.cover_image) }}"  alt="{{ movie.title }} cover">
             </div>
             {% endfor %}
         {% else %}
             <div class="carousel-item  active">
-                <img src="{{ url_for('static', filename='images/uploads/default_cover.jpg') }}" alt="Default Cover" class="img-fluid">
+                <img class="carouse_image" src="{{ url_for('static', filename='images/uploads/default_cover.jpg') }}" alt="Default Cover" class="img-fluid">
             </div>
         {% endif %}
     </div>
