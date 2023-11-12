@@ -4,38 +4,9 @@
 import os
 
 class Config:
-    """
-    Base configuration class. Contains default configuration settings.
-    """
-    SECRET_KEY = os.getenv('SECRET_KEY')
-    SQLALCHEMY_DATABASE_URI = 'sqlite:///db.sqlite3'
-    SQLALCHEMY_TRACK_MODIFICATIONS = False
+    SECRET_KEY = os.getenv('SECRET_KEY', 'not-set')
+    SQLALCHEMY_DATABASE_URI = os.getenv('DATABASE_URL', 'sqlite:///db.sqlite3' ) 
+    SQLALCHEMY_ECHO = True
     UPLOAD_FOLDER = os.path.join(os.getcwd(), 'static', 'images', 'uploads')
     MAX_CONTENT_LENGTH = 16 * 1024 * 1024  # 16 MB upload limit
     MAX_IMAGE_FILESIZE = 0.5 * 1024 * 1024  # 0.5 MB
-
-
-class DevelopmentConfig(Config):
-    """
-    Development configuration class. Overrides default configuration with development-specific settings.
-    """
-    DEBUG = True
-    SQLALCHEMY_ECHO = True  # Helps in debugging by printing SQL queries
-
-
-class TestingConfig(Config):
-    """
-    Testing configuration class. Overrides default configuration with testing-specific settings.
-    """
-    TESTING = True
-    SQLALCHEMY_DATABASE_URI = 'sqlite:///:memory:'  # Use in-memory SQLite database for tests
-
-
-class ProductionConfig(Config):
-    """
-    Production configuration class. Overrides default configuration with production-specific settings.
-    """
-    DEBUG = False
-    SQLALCHEMY_ECHO = False
-
-
