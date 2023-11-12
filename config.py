@@ -7,7 +7,7 @@ class Config:
     """
     Base configuration class. Contains default configuration settings.
     """
-    SECRET_KEY = 'your_very_secure_secret_key'  # WARNING: Keep this secret and use a secure method to manage it for production
+    SECRET_KEY = os.getenv('SECRET_KEY')
     SQLALCHEMY_DATABASE_URI = 'sqlite:///db.sqlite3'
     SQLALCHEMY_TRACK_MODIFICATIONS = False
     UPLOAD_FOLDER = os.path.join(os.getcwd(), 'static', 'images', 'uploads')
