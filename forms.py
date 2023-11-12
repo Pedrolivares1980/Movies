@@ -19,7 +19,9 @@ class MovieForm(FlaskForm):
         ('mystery', 'Mystery'),
         ('romance', 'Romance'),
         ('thriller', 'Thriller'),
-        # ... más géneros ...
+        ('adventure', 'Adventure'),
+        ('family', 'Family'),
+        ('animation', 'Animation')
     ])
     director = StringField('Director', validators=[DataRequired()])
     overview = TextAreaField('Overview', validators=[DataRequired()])
