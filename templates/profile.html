@@ -39,7 +39,7 @@
                     <li class="list-group-item">
                         <div class="row">
                             <div class="col-md-3">
-                                <img src="{{ url_for('static', filename='images/uploads/' + movie.cover_image) if movie.cover_image else url_for('static', filename='images/uploads/default_cover.jpg') }}" alt="{{ movie.title }} Cover" class="img-fluid">
+                                <img src="{{ url_for('static', filename='images/uploads/' + movie.cover_image) if movie.cover_image else url_for('static', filename='images/uploads/default_cover.jpg') }}" alt="{{ movie.title }} Cover" class="img-fluid rounded-4">
                             </div>
                             <div class="col-md-9">
                                 <h3>{{ movie.title }}</h3>
