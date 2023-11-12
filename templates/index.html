@@ -3,14 +3,14 @@
 {% block title %}Librarian - Welcome{% endblock %}
 
 {% block content %}
-<div class="container mt-4">
-    <h1 class="text-center">Welcome to Librarian</h1>
+<div class="container mt-4 mb-3">
+    <h1 class="text-center mt-4 mb-3">Welcome to <span class="logo fs-1">MovieWorld</span></h1>
 <!-- Carousel for random movies -->
-<div id="movieCarousel" class="carousel slide" data-bs-ride="carousel">
-    <div class="carousel-inner">
+<div id="movieCarousel" class="carousel slide " data-bs-ride="carousel">
+    <div class="carousel-inner ">
         {% if random_movies %}
             {% for movie in random_movies %}
-            <div class="carousel-item {% if loop.first %}active{% endif %}">
+            <div class="carousel-item {% if loop.first %}active{% endif %} ">
                 <img src="{{ url_for('static', filename='images/uploads/' + movie.cover_image) }}" class="d-block w-100" alt="{{ movie.title }} cover">
                 <div class="carousel-caption d-none d-md-block">
                     <h5>{{ movie.title }}</h5>
@@ -19,12 +19,8 @@
             </div>
             {% endfor %}
         {% else %}
-            <div class="carousel-item active">
+            <div class="carousel-item  active">
                 <img src="{{ url_for('static', filename='images/uploads/default_cover.jpg') }}" alt="Default Cover" class="img-fluid">
-                <div class="carousel-caption d-none d-md-block">
-                    <h5>No Movies Found</h5>
-                    <p>There are no movies to display at the moment.</p>
-                </div>
             </div>
         {% endif %}
     </div>
@@ -41,10 +37,9 @@
 </div>
     <!-- About section -->
     <div class="mt-4">
-        <h2>About Librarian</h2>
-        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla ac libero eu arcu congue varius. Nunc vel turpis eget quam fermentum tincidunt. Sed sed turpis in arcu varius bibendum a non sem.</p>
-        <p>Librarian is your ultimate platform for managing and exploring your movie collection. With Librarian, you can easily add, update, and organize your movies. You can also write and manage reviews for your favorite movies.</p>
-        <p>Join our community of movie enthusiasts today and experience the joy of organizing your movie collection!</p>
+        <h2 class="text-center py-4"><span class="logo fs-1">MovieWorld</span></h2>
+        <p class="text-center"><span class="logo fs-4">MovieWorld</span> is your ultimate platform for managing and exploring your movie collection. With <span class="logo fs-4">MovieWorld</span>, you can easily add, update, and organize your movies. You can also write and manage reviews for your favorite movies.</p>
+        <p class="text-center">Join our community of movie enthusiasts today and experience the joy of organizing your movie collection!</p>
     </div>
 </div>
 {% endblock %}

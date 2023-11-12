@@ -6,6 +6,7 @@
   margin: 0;
   padding: 0;
   box-sizing: border-box;
+  font-family: 'Montserrat', 'Poppins', sans-serif;
 }
 
 /* Custom CSS variables */
@@ -18,73 +19,67 @@
 }
 
 /* General styles for the body */
-html,
-body {
-  scroll-behavior: smooth;
-  font-family: "Montserrat", "Poppins", sans-serif;
-  font-size: 0.89rem;
-  line-height: 1.6;
-  background-color: var(--bg-color);
-  color: var(--text-color);
-  display: flex;
-  flex-direction: column;
+
+body{
   min-height: 100vh;
 }
 
-/* Scroll bar */
-
-::-webkit-scrollbar {
-  width: 0.8rem;
-  border-radius: 0.5rem;
-  background-color: var(--primary-color);
-}
-
-::-webkit-scrollbar-thumb {
-  border-radius: 0.5rem;
-  background-color: var(--bg-second-color);
-}
-
-::-webkit-scrollbar-thumb:hover {
+nav{
   background-color: var(--bg-color);
 }
 
-/* Styles for images */
-img {
-  max-width: 100%;
-  height: auto;
-  display: block;
-}
-
-.custom-navbar{
-  background-color: var(--bg-color);
-}
-
-.custom-navbar .navbar-links{
-  color: var(--text-color);
-}
-
-.custom-navbar .logo {
+.navbar .logo{
   color: var(--primary-color);
 }
 
-.custom-navbar .navbar-links:hover{
-  color: var(--primary-color);
+.navbar .logo:hover{
+  color: var(--text-color);
+  transform: scale(1.2);
+  transition: all 0.5s;
 }
 
-.custom-navbar .logo:hover {
+.navbar .nav-link{
   color: var(--text-color);
+}
+
+.navbar .nav-link:hover{
+  color: var(--primary-color);
+  transform: scale(1.2);
+  transition: all 0.5s;
 }
 
 main{
-  flex-grow: 1;
   padding: 1.25rem;
+  min-height: 100vh;
+  background-color: var(--bg-second-color);
+  color: var(--text-color);
 }
 
+/* INDEX */
+.logo{
+  color: var(--primary-color);
+}
+
+
+
+/* MOVIES */
+
+
+/* PROFILE */
+
+.profile_img{
+  width: 30%;
+  margin: auto;
+  display: block;
+  border-radius: 50%;
+}
+
+/* REGISTER */
+
+
+/* LOGIN */
+
 footer{
-  position: fixed;
-  bottom: 0px;
-  left: 0px;
-  right: 0px;
   background-color: var(--bg-color);
   color: var(--text-color);
   padding-top: 1.25rem;

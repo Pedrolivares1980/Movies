@@ -10,7 +10,7 @@
         <div class="col-md-4">
             <!-- Mostrar imagen actual del perfil -->
             <div class="mb-4">
-                <img src="{{ url_for('static', filename='images/uploads/' + user.profile_image) if user.profile_image else url_for('static', filename='images/uploads/default_profile.jpg') }}" alt="Profile Image" class="rounded-circle img-thumbnail">
+                <img class="profile_img" src="{{ url_for('static', filename='images/uploads/' + user.profile_image) if user.profile_image else url_for('static', filename='images/uploads/default_profile.jpg') }}" alt="Profile Image" class="rounded-circle img-thumbnail">
             </div>
             
             <!-- Formulario para actualizar la imagen de perfil -->
