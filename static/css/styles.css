@@ -49,6 +49,7 @@ nav{
 }
 
 main{
+  margin-top: 3rem;
   padding: 1.25rem;
   min-height: 100vh;
   background-color: var(--bg-second-color);
