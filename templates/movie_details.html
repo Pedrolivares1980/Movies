@@ -16,8 +16,15 @@
             <p>Year: {{ movie.year }}</p>
             <p>Genre: {{ movie.genre }}</p>
             <p>Overview: {{ movie.overview }}</p>
-            <p>Trailer Link: <a href="{{ movie.trailer_link }}" target="_blank">{{ movie.trailer_link }}</a></p>
             <p>Cast: {{ movie.cast }}</p>
+            {% if movie.trailer_link %}
+            <h2>Trailer</h2>
+            {% set video_id = movie.trailer_link.split('=')[-1] %}
+            <div class="embed-responsive embed-responsive-16by9">
+                <iframe class="embed-responsive-item" src="https://www.youtube.com/embed/{{ video_id }}" allowfullscreen></iframe>
+            </div>
+            {% endif %}
+
 
             <!-- Reviews Section -->
             <h2>Reviews</h2>
