@@ -12,36 +12,40 @@
             <div class="mb-4">
                 <img class="profile_img" src="{{ url_for('static', filename='images/uploads/' + user.profile_image) if user.profile_image else url_for('static', filename='images/uploads/default_profile.jpg') }}" alt="Profile Image" class="rounded-circle img-thumbnail">
             </div>
-            
-            <!-- Formulario para actualizar la imagen de perfil -->
-            <form method="POST" enctype="multipart/form-data" action="{{ url_for('update_profile_image') }}">
-                {{ form.hidden_tag() }}
-                <div class="mb-3">
-                    <label for="profile_image" class="form-label">Edit Profile Image</label>
-                    {{ form.profile_image(class="form-control", id="profile_image") }}
-                    {% if form.profile_image.errors %}
-                        <div class="invalid-feedback">{{ form.profile_image.errors[0] }}</div>
-                    {% endif %}
+            <div >
+                <form method="POST"  enctype="multipart/form-data" action="{{ url_for('update_profile_image') }}">
+                    {{ form.hidden_tag() }}
+                    <div class="mb-3">
+                        <label for="profile_image" class="form-label text-center my-2 ">Edit Profile Image</label>
+                        {{ form.profile_image(class="form-control", id="profile_image") }}
+                        {% if form.profile_image.errors %}
+                            <div class="invalid-feedback">{{ form.profile_image.errors[0] }}</div>
+                        {% endif %}
+                    </div>
+                    <button type="submit" class="btn btn-primary my-2 ">Update Profile Image</button>
+                </form>
+                
+                <form method="POST" action="{{ url_for('delete_account') }}">
+                    {{ form.hidden_tag() }}
+                    <button type="submit" class="btn btn-danger my-2  " id="delete-account-button" onclick="return confirmDeleteAccount();">Delete Account</button>
+                </form>
+                <div class="mt-4">
+                    <div class="my-3">
+                        <a href="{{ url_for('add_movie') }}" class="btn btn-primary my-2 ms-auto ">Añadir Nueva Película</a>
+                    </div>
                 </div>
-                <button type="submit" class="btn btn-primary my-2">Update Profile Image</button>
-            </form>
-            
-            <!-- Formulario para eliminar cuenta -->
-            <form method="POST" action="{{ url_for('delete_account') }}">
-                {{ form.hidden_tag() }}
-                <button type="submit" class="btn btn-danger mt-2" id="delete-account-button" onclick="return confirmDeleteAccount();">Delete Account</button>
-            </form>
+            </div>
         </div>
-        <div class="col-md-8">
-            <h2>My Movies</h2>
+        <div class="col-md-8 my-3">
+            <h2 class="text-center my-4">My Movies</h2>
             <ul class="list-group">
                 {% for movie in user_movies %}
-                    <li class="list-group-item">
+                    <li class="list-group-item rounded-4 my-2">
                         <div class="row">
-                            <div class="col-md-3">
+                            <div class="col-md-3 text-center">
                                 <img src="{{ url_for('static', filename='images/uploads/' + movie.cover_image) if movie.cover_image else url_for('static', filename='images/uploads/default_cover.jpg') }}" alt="{{ movie.title }} Cover" class="img-fluid rounded-4">
                             </div>
-                            <div class="col-md-9">
+                            <div class="col-md-9 text-center mt-2">
                                 <h3>{{ movie.title }}</h3>
                                 <p>Year: {{ movie.year }}</p>
                                 <p>Genre: {{ movie.genre }}</p>
@@ -57,7 +61,7 @@
                     </li>
                 {% endfor %}
             </ul>
-            <h2 class="mt-4">My Reviews</h2>
+            <h2 class="text-center my-4">My Reviews</h2>
             <ul class="list-group">
                 {% for review in user_reviews %}
                     <li class="list-group-item">
@@ -74,11 +78,7 @@
             </ul>
         </div>
     </div>
-    <div class="mt-4">
-        <div class="mt-4 mb-4">
-            <a href="{{ url_for('add_movie') }}" class="btn btn-primary">Añadir Nueva Película</a>
-        </div>
-    </div>
+
 
     <script src="{{ url_for('static', filename='js/confirm.js') }}"></script>
 
