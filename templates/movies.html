@@ -47,7 +47,6 @@
                     </div>
                     <div class="movies_content">
                         <h3 >{{ movie.title }}</h3>
-                        <p >Director: {{ movie.director }}</p>
                         <p >Year: {{ movie.year }}</p>
                         <div class="button">
                             <a href="{{ url_for('movie_details', movie_id=movie.id) }}" class="b1">Details</a>
