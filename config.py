@@ -8,5 +8,5 @@ class Config:
     SQLALCHEMY_DATABASE_URI = os.getenv('DATABASE_URL', 'sqlite:///db.sqlite3' ) 
     SQLALCHEMY_ECHO = True
     UPLOAD_FOLDER = os.path.join(os.getcwd(), 'static', 'images', 'uploads')
-    MAX_CONTENT_LENGTH = 16 * 1024 * 1024  # 16 MB upload limit
-    MAX_IMAGE_FILESIZE = 0.5 * 1024 * 1024  # 0.5 MB
+    # MAX_CONTENT_LENGTH = 16 * 1024 * 1024 
+    # MAX_IMAGE_FILESIZE = 0.5 * 1024 * 1024 
