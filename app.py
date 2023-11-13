@@ -1,7 +1,7 @@
 from werkzeug.utils import secure_filename
 from flask_migrate import Migrate
 from flask_bcrypt import Bcrypt
-from flask import Flask, flash, render_template, redirect, request, url_for
+from flask import Flask, flash, render_template, redirect, request, url_for, send_from_directory
 from flask_login import LoginManager, login_user, login_required, current_user, logout_user
 from flask_wtf.csrf import CSRFProtect
 from models import User, Movie, Review, db
@@ -30,6 +30,14 @@ def load_user(user_id):
 with app.app_context():
     db.init_app(app)
     db.create_all() 
+
+
+@app.route('/uploads/<filename>')
+def uploaded_file(filename):
+    """
+    Serve the uploaded files from the uploads folder.
+    """
+    return send_from_directory(app.config['UPLOAD_FOLDER'], filename)
 
 @app.route('/')
 def index():
@@ -393,11 +401,12 @@ def movie_details(movie_id):
     reviews = Review.query.filter_by(movie_id=movie_id).order_by(Review.date_posted.desc()).all()
     return render_template('movie_details.html', movie=movie, reviews=reviews)
 
+
 @app.route('/add_review/<int:movie_id>', methods=['GET', 'POST'])
 @login_required
 def add_review(movie_id):
     """
-    Route to add a review to a movie. It displays a form to submit a review and processes it upon submission.
+    Allow any authenticated user to add a review to a movie.
     """
     form = ReviewForm()
     movie = Movie.query.get_or_404(movie_id)
@@ -411,16 +420,13 @@ def add_review(movie_id):
 
     return render_template('add_review.html', form=form, movie=movie)
 
-
 @app.route('/edit_review/<int:review_id>', methods=['GET', 'POST'])
 @login_required
 def edit_review(review_id):
     """
-    Route to edit a review. It checks if the current user is the author of the review
-    and allows them to update the content of their review.
+    Allow only the author of the review to edit it.
     """
     review = Review.query.get_or_404(review_id)
-    # Ensure the current user is the author of the review
     if review.user_id != current_user.id:
         flash('You are not authorized to edit this review.', 'danger')
         return redirect(url_for('index'))
@@ -434,6 +440,48 @@ def edit_review(review_id):
 
     movie = Movie.query.get(review.movie_id)
     return render_template('edit_review.html', form=form, review=review, movie=movie)
+
+# @app.route('/add_review/<int:movie_id>', methods=['GET', 'POST'])
+# @login_required
+# def add_review(movie_id):
+#     """
+#     Route to add a review to a movie. It displays a form to submit a review and processes it upon submission.
+#     """
+#     form = ReviewForm()
+#     movie = Movie.query.get_or_404(movie_id)
+
+#     if form.validate_on_submit():
+#         new_review = Review(content=form.content.data, movie_id=movie_id, user_id=current_user.id)
+#         db.session.add(new_review)
+#         db.session.commit()
+#         flash('Your review has been added.', 'success')
+#         return redirect(url_for('movie_details', movie_id=movie_id))
+
+#     return render_template('add_review.html', form=form, movie=movie)
+
+
+# @app.route('/edit_review/<int:review_id>', methods=['GET', 'POST'])
+# @login_required
+# def edit_review(review_id):
+#     """
+#     Route to edit a review. It checks if the current user is the author of the review
+#     and allows them to update the content of their review.
+#     """
+#     review = Review.query.get_or_404(review_id)
+#     # Ensure the current user is the author of the review
+#     if review.user_id != current_user.id:
+#         flash('You are not authorized to edit this review.', 'danger')
+#         return redirect(url_for('index'))
+
+#     form = ReviewForm(obj=review)
+#     if form.validate_on_submit():
+#         review.content = form.content.data
+#         db.session.commit()
+#         flash('Review updated successfully.', 'success')
+#         return redirect(url_for('movie_details', movie_id=review.movie_id))
+
+#     movie = Movie.query.get(review.movie_id)
+#     return render_template('edit_review.html', form=form, review=review, movie=movie)
 
 @app.route('/delete_review/<int:review_id>', methods=['POST'])
 @login_required

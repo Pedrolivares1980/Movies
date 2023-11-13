@@ -1,4 +1,4 @@
-{% extends 'base.html' %}
+{{% extends 'base.html' %}
 
 {% block title %}Librarian - Add Review{% endblock %}
 
@@ -6,7 +6,13 @@
 <div class="add_review_container mt-4">
     <h1 class="text-center">Add Review</h1>
     <div class="text-center mb-4">
-        <img src="{{ url_for('static', filename='images/uploads/' + movie.cover_image) }}" alt="{{ movie.title }} Cover" class="img-fluid">
+        <!-- Use the new route for uploaded files -->
+        {% if movie.cover_image %}
+            <img src="{{ url_for('uploaded_file', filename=movie.cover_image) }}" alt="{{ movie.title }} Cover" class="img-fluid">
+        {% else %}
+            <!-- Fallback to default image if cover_image is not set -->
+            <img src="{{ url_for('static', filename='images/uploads/default_cover.jpg') }}" alt="Default Cover" class="img-fluid">
+        {% endif %}
         <h2>{{ movie.title }}</h2>
     </div>
 

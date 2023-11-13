@@ -37,7 +37,11 @@
         <div class="col-md-4">
             <!-- Display current profile image -->
             <div class="mb-4">
-                <img class="profile_img" src="{{ url_for('static', filename='images/uploads/' + user.profile_image) if user.profile_image else url_for('static', filename='images/uploads/default_profile.jpg') }}" alt="Profile Image" class="rounded-circle img-thumbnail">
+                {% if user.profile_image %}
+                    <img class="profile_img rounded-circle img-thumbnail" src="{{ url_for('uploaded_file', filename=user.profile_image) }}" alt="Profile Image">
+                {% else %}
+                    <img class="profile_img rounded-circle img-thumbnail" src="{{ url_for('static', filename='images/uploads/default_profile.jpg') }}" alt="Default Profile Image">
+                {% endif %}
             </div>
         
             <!-- Button group container -->
@@ -74,8 +78,13 @@
                 {% for movie in user_movies %}
                     <li class="list-group-item rounded-4 my-2">
                         <div class="row">
+                        <!-- ... [Movie Details] ... -->
                             <div class="col-md-3 text-center">
-                                <img src="{{ url_for('static', filename='images/uploads/' + movie.cover_image) if movie.cover_image else url_for('static', filename='images/uploads/default_cover.jpg') }}" alt="{{ movie.title }} Cover" class="img-fluid rounded-4">
+                                {% if movie.cover_image %}
+                                    <img src="{{ url_for('uploaded_file', filename=movie.cover_image) }}" alt="{{ movie.title }} Cover" class="img-fluid rounded-4">
+                                {% else %}
+                                    <img src="{{ url_for('static', filename='images/uploads/default_cover.jpg') }}" alt="Default Cover" class="img-fluid rounded-4">
+                                {% endif %}
                             </div>
                             <div class="col-md-9 text-center mt-2">
                                 <h3>{{ movie.title }}</h3>

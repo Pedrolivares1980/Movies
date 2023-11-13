@@ -62,14 +62,14 @@
       {% endif %}
     </div>
 
-    <!-- Imagen de portada de la película -->
     <div class="mb-3">
       <label for="cover_image" class="form-label">Cover Image</label>
+      <!-- Campo para la carga de la imagen -->
       {{ form.cover_image(class="form-control", id="cover_image") }}
       {% if form.cover_image.errors %}
-      <div class="invalid-feedback">{{ form.cover_image.errors[0] }}</div>
+          <div class="invalid-feedback">{{ form.cover_image.errors[0] }}</div>
       {% endif %}
-    </div>
+  </div>
 
     <!-- Enlace al tráiler de la película -->
     <div class="mb-3">

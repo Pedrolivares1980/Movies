@@ -26,8 +26,8 @@ class MovieForm(FlaskForm):
     director = StringField('Director', validators=[DataRequired()])
     overview = TextAreaField('Overview', validators=[DataRequired()])
     cast = TextAreaField('Cast', description="List the main cast. Separate names with commas.")
-    cover_image = FileField('Cover Image', validators=[
-        FileAllowed(['jpg', 'jpeg' 'png', 'webp'], 'Only JPG, PNG and WEBP images are allowed.')
+    cover_image = FileField('Cover Image' , validators=[
+        FileAllowed(['jpg', 'jpeg' 'png', 'webp'], 'Only JPG, JPEG, PNG and WEBP images are allowed.')
     ])
     trailer_link = StringField('Trailer Link', validators=[
         DataRequired(message="Please provide a link to the movie trailer."),

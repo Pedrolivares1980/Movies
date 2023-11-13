@@ -28,7 +28,13 @@
     <div class="row">
         <div class="col-md-6 offset-md-3 mt-4">
             <h3>Movie Details:</h3>
-            <img src="{{ url_for('static', filename='images/uploads/' + movie.cover_image) }}" alt="{{ movie.title }} Cover" class="img-fluid">
+            <!-- Use the new route for uploaded files -->
+            {% if movie.cover_image %}
+                <img src="{{ url_for('uploaded_file', filename=movie.cover_image) }}" alt="{{ movie.title }} Cover" class="img-fluid">
+            {% else %}
+                <!-- Fallback to default image if cover_image is not set -->
+                <img src="{{ url_for('static', filename='images/uploads/default_cover.jpg') }}" alt="Default Cover" class="img-fluid">
+            {% endif %}
             <p>Title: {{ movie.title }}</p>
             <p>Director: {{ movie.director }}</p> <!-- Assuming the attribute is 'director' -->
         </div>
