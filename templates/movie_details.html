@@ -1,36 +1,37 @@
 {% extends 'base.html' %}
 
-{% block title %}Librarian - Movie Details{% endblock %}
+{% block title %}MovieWorld - Movie Details{% endblock %}
 
 {% block content %}
 <div class="container mt-4">
     <h1 class="text-center">{{ movie.title }}</h1>
     <div class="row">
         <div class="col-md-4">
-            <img src="{{ url_for('uploaded_file', filename=movie.cover_image) }}"
-            alt="{{ movie.title }} Cover" class="img-fluid">
+            {% if movie.cover_image %}
+                <img src="{{ movie.cover_image }}" alt="{{ movie.title }} Cover" class="img-fluid">
+            {% else %}
+                <img src="{{ url_for('static', filename='images/uploads/default_cover.jpg') }}" alt="Default Cover" class="img-fluid">
+            {% endif %}
         </div>
         <div class="col-md-8">
             <h2>Details</h2>
             <p>Title: {{ movie.title }}</p>
-            <p>Director: {{ movie.director }}</p> <!-- Adjust attribute name as per your model -->
+            <p>Director: {{ movie.director }}</p>
             <p>Year: {{ movie.year }}</p>
             <p>Genre: {{ movie.genre }}</p>
             <p>Overview: {{ movie.overview }}</p>
             <p>Cast: {{ movie.cast }}</p>
             {% if movie.trailer_link %}
             <h2>Trailer</h2>
-            {% set video_id = movie.trailer_link.split('=')[-1] %}
             <div class="embed-responsive embed-responsive-16by9">
-                <iframe class="embed-responsive-item" src="https://www.youtube.com/embed/{{ video_id }}" allowfullscreen></iframe>
+                <iframe class="embed-responsive-item" src="{{ movie.trailer_link }}" allowfullscreen></iframe>
             </div>
             {% endif %}
-
 
             <!-- Reviews Section -->
             <h2>Reviews</h2>
             <ul class="list-group">
-                {% for review in movie.reviews %}
+                {% for review in reviews %}
                 <li class="list-group-item">
                     <p>{{ review.content }}</p>
                     <p>Date Posted: {{ review.date_posted.strftime('%Y-%m-%d %H:%M:%S') }}</p>
@@ -57,4 +58,3 @@
     </div>
 </div>
 {% endblock %}
-

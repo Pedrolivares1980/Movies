@@ -1,6 +1,6 @@
 {% extends 'base.html' %}
 
-{% block title %}Librarian - Edit Movie{% endblock %}
+{% block title %}MovieWorld - Edit Movie{% endblock %}
 
 {% block content %}
 <div class="container mt-4">
@@ -76,17 +76,21 @@
                 <!-- Cover Image Upload and Current Image Display -->
                 <div class="mx-3 mb-3">
                     <label for="cover_image" class="form-label">Current Cover Image</label>
-                    <!-- Use the new route for uploaded files -->
+                    <!-- Display current cover image or default image -->
                     {% if movie.cover_image %}
-                        <img src="{{ url_for('uploaded_file', filename=movie.cover_image) }}" alt="{{ movie.title }} Cover" class="img-thumbnail">
+                        <img src="{{ movie.cover_image }}" alt="{{ movie.title }} Cover" class="img-thumbnail">
                     {% else %}
-                        <!-- Fallback to default image if cover_image is not set -->
                         <img src="{{ url_for('static', filename='images/uploads/default_cover.jpg') }}" alt="Default Cover" class="img-thumbnail">
                     {% endif %}
                 </div>
+                
+                <!-- Cover Image URL Field with Error Handling -->
                 <div class="mb-3">
-                    <label for="cover_image" class="form-label">New Cover Image</label>
-                    <input type="file" class="form-control" id="cover_image" name="cover_image">
+                    <label for="cover_image" class="form-label">Cover Image URL</label>
+                    {{ form.cover_image(class="form-control", id="cover_image") }}
+                    {% if form.cover_image.errors %}
+                        <div class="text-danger">{{ form.cover_image.errors[0] }}</div>
+                    {% endif %}
                 </div>
 
                 <!-- Submit Button -->

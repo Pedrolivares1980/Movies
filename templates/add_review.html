@@ -1,29 +1,30 @@
-{{% extends 'base.html' %}
+{% extends 'base.html' %}
 
-{% block title %}Librarian - Add Review{% endblock %}
+{% block title %}MovieWorld - Add Review{% endblock %}
 
 {% block content %}
 <div class="add_review_container mt-4">
     <h1 class="text-center">Add Review</h1>
     <div class="text-center mb-4">
-        <!-- Use the new route for uploaded files -->
+        <!-- Display movie cover image or default image -->
         {% if movie.cover_image %}
-            <img src="{{ url_for('uploaded_file', filename=movie.cover_image) }}" alt="{{ movie.title }} Cover" class="img-fluid">
+        <img src="{{ movie.cover_image }}" alt="{{ movie.title }} Cover" class="img-fluid">
         {% else %}
-            <!-- Fallback to default image if cover_image is not set -->
-            <img src="{{ url_for('static', filename='images/uploads/default_cover.jpg') }}" alt="Default Cover" class="img-fluid">
+        <img src="{{ url_for('static', filename='images/uploads/default_cover.jpg') }}" alt="Default Cover" class="img-fluid">
         {% endif %}
         <h2>{{ movie.title }}</h2>
     </div>
 
     <div class="row">
         <div class="col-md-6 offset-md-3">
+            <!-- Review Form -->
             <form action="{{ url_for('add_review', movie_id=movie.id) }}" method="POST">
                 {{ form.hidden_tag() }}
                 <div class="mb-3">
                     <label for="content" class="form-label">Review</label>
                     {{ form.content(class="form-control", id="content") }}
                 </div>
+                <!-- Submit and Back Buttons -->
                 <button type="submit" class="btn btn-primary">Add Review</button>
                 <a href="{{ url_for('movie_details', movie_id=movie.id) }}" class="btn btn-secondary">Back</a>
             </form>

@@ -1,19 +1,19 @@
 {% extends 'base.html' %}
 
-{% block title %}Librarian - Welcome{% endblock %}
+{% block title %}MovieWorld - Welcome{% endblock %}
 
 {% block content %}
 <div class="container mt-4 mb-3">
     <h1 class="text-center mt-4 mb-3">Welcome to <span class="logo fs-1">MovieWorld</span></h1>
     <!-- Carousel for random movies -->
     <div id="movieCarousel" class="carousel slide " data-bs-ride="carousel">
-        <div class="carousel-inner ">
+        <div class="carousel-inner">
             {% if random_movies %}
                 {% for movie in random_movies %}
                 <div class="carousel-item {% if loop.first %}active{% endif %}">
                     {% if movie.cover_image %}
-                        <!-- Use the new route for uploaded files -->
-                        <img class="carouse_image" src="{{ url_for('uploaded_file', filename=movie.cover_image) }}" alt="{{ movie.title }} cover">
+                        <!-- Use direct URL for cover images -->
+                        <img src="{{ movie.cover_image }}" alt="{{ movie.title }} Cover" class="carouse_image">
                     {% else %}
                         <!-- Fallback to default image if cover_image is not set -->
                         <img class="carouse_image" src="{{ url_for('static', filename='images/uploads/default_cover.jpg') }}" alt="Default Cover" class="img-fluid">

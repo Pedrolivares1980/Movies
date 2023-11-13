@@ -30,7 +30,7 @@
             <h3>Movie Details:</h3>
             <!-- Use the new route for uploaded files -->
             {% if movie.cover_image %}
-                <img src="{{ url_for('uploaded_file', filename=movie.cover_image) }}" alt="{{ movie.title }} Cover" class="img-fluid">
+            <img src="{{ movie.cover_image }}" alt="{{ movie.title }} Cover" class="img-fluid">
             {% else %}
                 <!-- Fallback to default image if cover_image is not set -->
                 <img src="{{ url_for('static', filename='images/uploads/default_cover.jpg') }}" alt="Default Cover" class="img-fluid">

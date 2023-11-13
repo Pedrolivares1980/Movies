@@ -13,7 +13,7 @@ class User(db.Model, UserMixin):
     username = db.Column(db.String(80), unique=True, nullable=False, index=True)
     email = db.Column(db.String(120), unique=True, nullable=False, index=True)
     password_hash = db.Column(db.String(128), nullable=False)
-    profile_image = db.Column(db.String(255))
+    profile_image = db.Column(db.String, nullable=True)  # URL of the profile image
     movies = db.relationship('Movie', backref='user', lazy='dynamic', cascade="all, delete-orphan")
     reviews = db.relationship('Review', backref='user', lazy='dynamic', cascade="all, delete-orphan")
 
@@ -37,7 +37,7 @@ class Movie(db.Model):
     year = db.Column(db.Integer, nullable=False)
     genre = db.Column(db.String(100), nullable=False)
     overview = db.Column(db.Text, nullable=False)
-    cover_image = db.Column(db.String(255))
+    cover_image = db.Column(db.String, nullable=True)  # URL of the movie cover image
     director = db.Column(db.String(100), nullable=False)
     trailer_link = db.Column(db.String, nullable=False)  # Ensuring this field is not empty
     cast = db.Column(db.String(500), nullable=True)  # Nullable if not every movie has a cast listed
@@ -54,4 +54,3 @@ class Review(db.Model):
     date_updated = db.Column(db.DateTime, nullable=False, default=func.now(), onupdate=func.now())
     movie_id = db.Column(db.Integer, db.ForeignKey('movie.id'), nullable=False)
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
-
